@@ -1,0 +1,35 @@
+
+{
+    "name": "nodejs",
+    "icon": "file",
+    "folder": "nodejs",
+    "userOptions": {
+        "options":[
+            "branchs",
+            ""
+        ],
+        "branchs": 
+        {
+            "name":"Branch",
+            "type":"dropDown",
+            "defualt":"Current",
+            "options":[
+            "LTS",
+            "Current"
+        ]
+    },
+        "operatingSystem":{
+            "name":"OS version",
+            "type":"dropDown",
+            "defualt":"Windows X32",
+            "options":[
+                "Windows X64",
+                "Windows X32"
+            ]
+        }
+    },
+    "userSettings":{
+        "branchs":"",
+        "systems":""
+    }
+}

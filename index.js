@@ -1,10 +1,42 @@
-let util = require("./util.js");
-let nodeApp = require("./apps/node.js");
+// let util = require("./util.js");
+var schedule = require('node-schedule');
 
-test();
-async function test(){
-let data = await util.cmd("node -v");
-let data2 = await util.cmd("C:/opencv/build/x64/vc15/bin/opencv_version.exe");
-nodeApp.run("wow");
-console.log("wow");
+// let nodeApp = require("./apps/node.js");
+
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+const adapter = new FileSync('./apps/apps.json');
+const appsConfig = low(adapter);
+
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+
+module.exports = {
+    check: check
 }
+
+async function check() {
+    let data = appsConfig.get('apps').value();
+    checkForUpdates(data);
+}
+
+var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc data every 1 minute(for 30 seconds */30 * * * * *)
+    get_cmc_data();
+});//schedule
+
+async function checkForUpdates(data) {//check function
+    //loop through array
+    for (let i in data) {
+        try {
+            let app = require(`./apps/${data[i].folder}/${data[i].file}`);//load app
+            let avc = await app.run();
+            console.log(avc);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+}
+
+// async function execcheckForUpdates(data) {
+
+// }

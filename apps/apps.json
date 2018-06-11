@@ -1,0 +1,8 @@
+{
+    "apps": [
+        {
+            "folder": "nodejs",
+            "file": "node.js"
+        }
+    ]
+}
