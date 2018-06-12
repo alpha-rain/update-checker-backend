@@ -7,16 +7,28 @@ const requestCallback = require('request');
 let request = promisify(requestCallback);
 
 module.exports = {
+    init: init,
     run: run
 }
 
 async function run(settings){
+    let osInfo = util.osInfo();
     let iv = await installedVersion("wow");//setting.installed check current ver5sion
 
     let ov = await onlineVersion("wow");//check latest version, LTS or current
 
+    let checkResult = {
+        updateAvailable: false,
+        updateLink: "",
+        errors: false,
+        errorText: ""
+    }
+
     if(combine(iv, ov.current) == true){
-        return "good";
+        checkResult.updateAvailable = false;
+        return checkResult;
+    } else {
+        //get update link
     }
 }
 
@@ -46,6 +58,10 @@ async function onlineVersion(setting) {
     };
 
     return version;
+}
+
+async function latestVersion(setting) {
+
 }
 
 //until

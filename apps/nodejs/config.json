@@ -3,6 +3,7 @@
     "name": "nodejs",
     "icon": "file",
     "folder": "nodejs",
+    "initialize":"",
     "userOptions": {
         "options":[
             "branchs",
@@ -27,9 +28,5 @@
                 "Windows X32"
             ]
         }
-    },
-    "userSettings":{
-        "branchs":"",
-        "systems":""
-    }
+    }    
 }

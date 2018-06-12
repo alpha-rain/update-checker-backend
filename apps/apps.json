@@ -2,7 +2,11 @@
     "apps": [
         {
             "folder": "nodejs",
-            "file": "node.js"
+            "file": "node.js",
+            "userSettings":{
+                "branchs":"",
+                "systems":""
+            }
         }
     ]
 }

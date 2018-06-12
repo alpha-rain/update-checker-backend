@@ -26,10 +26,11 @@ var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc 
 
 async function checkForUpdates(data) {//check function
     //loop through array
+    let updateCheck = [];
     for (let i in data) {
         try {
             let app = require(`./apps/${data[i].folder}/${data[i].file}`);//load app
-            let avc = await app.run();
+            let checkResponse = await app.run();
             console.log(avc);
         } catch (err) {
             console.log(err.message);
