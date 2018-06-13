@@ -7,7 +7,7 @@ const requestCallback = require('request');
 let request = promisify(requestCallback);
 
 module.exports = {
-    init: init,
+    // init: init,
     run: run
 }
 
@@ -28,6 +28,7 @@ async function run(settings){
         checkResult.updateAvailable = false;
         return checkResult;
     } else {
+        console.log('qwe');
         //get update link
     }
 }

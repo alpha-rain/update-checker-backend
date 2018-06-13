@@ -31,7 +31,7 @@ async function checkForUpdates(data) {//check function
         try {
             let app = require(`./apps/${data[i].folder}/${data[i].file}`);//load app
             let checkResponse = await app.run();
-            console.log(avc);
+            console.log("avc");
         } catch (err) {
             console.log(err.message);
         }
