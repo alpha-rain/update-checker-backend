@@ -21,7 +21,7 @@ async function check() {
 }
 
 var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc data every 1 minute(for 30 seconds */30 * * * * *)
-    get_cmc_data();
+    // get_cmc_data();
 });//schedule
 
 async function checkForUpdates(data) {//check function

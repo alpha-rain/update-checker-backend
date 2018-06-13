@@ -4,6 +4,14 @@
     "icon": "file",
     "folder": "nodejs",
     "initialize":"",
+    "programOptions":{
+        "version": [
+            {
+                "link":"node-v<<version>>-x64.msi",
+                "operatingSystem":"Windows x64"
+            }
+        ]
+    },
     "userOptions": {
         "options":[
             "branchs",
@@ -22,10 +30,10 @@
         "operatingSystem":{
             "name":"OS version",
             "type":"dropDown",
-            "defualt":"Windows X32",
+            "defualt":"Windows x32",
             "options":[
-                "Windows X64",
-                "Windows X32"
+                "Windows x64",
+                "Windows x32"
             ]
         }
     }    
