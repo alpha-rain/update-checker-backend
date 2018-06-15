@@ -20,22 +20,15 @@ then just run:
 
 #### VSCode launch file for typescript debuging
 
-`{
-
+```
+{
     "type": "node",
-
     "request": "launch",
-
     "name": "Launch Program",
-
     "program": "${workspaceFolder}\\src\\test.ts",
-
     "outFiles": [
-
         "${workspaceFolder}\\dist/**/*js"
-
     ],
-
     "sourceMaps": true
-    
-}`
+}
+```
