@@ -13,18 +13,29 @@ Moved the code to typescript! side affect of this is you will have to copy over 
 #### Installing typscript
 
 >npm install -g typescript
+
 then just run:
+
 >tsc
 
 #### VSCode launch file for typescript debuging
 
 `{
+
     "type": "node",
+
     "request": "launch",
+
     "name": "Launch Program",
+
     "program": "${workspaceFolder}\\src\\test.ts",
+
     "outFiles": [
+
         "${workspaceFolder}\\dist/**/*js"
+
     ],
+
     "sourceMaps": true
+    
 }`
