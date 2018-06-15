@@ -6,7 +6,8 @@
         "allowJs": true,
         "outDir": "dist",
         "moduleResolution": "node",
-        "watch": true
+        "watch": true,
+        "strictNullChecks": true
     },
     "include": [
         "src/**/*"

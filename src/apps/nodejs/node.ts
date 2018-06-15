@@ -44,7 +44,7 @@ async function onlineVersion(setting) {
     };
     let response = await request(options);
     let $ = cheerio.load(response.body);
-    let versionRaw = [];
+    let versionRaw: string[] = [];
     $('.home-downloadblock').each(function (i, elem) {
         versionRaw.push($(this).find('a').attr('title'));
     });
