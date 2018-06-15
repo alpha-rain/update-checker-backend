@@ -1,6 +1,7 @@
 // let util = require("./util.js");
 // let nodeApp = require("./apps/node.js");
-let main = require('./index.js');
+import * as main from "./index";
+// let main = require('./index.js');
 
 main.check();
 

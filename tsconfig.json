@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "commonjs",
+        "sourceMap": true,
+        "allowJs": true,
+        "outDir": "dist",
+        "moduleResolution": "node",
+        "watch": true
+    },
+    "include": [
+        "src/**/*"
+    ]
+}
