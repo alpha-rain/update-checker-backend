@@ -1,13 +1,10 @@
-const util = require('util');
+import * as util from "util";
+import * as os from "os";
+
 const exec = util.promisify(require('child_process').exec);
-const os = require('os');
 
-module.exports = {
-    cmd: cmd,
-    osInfo: osInfo
-}
 
-async function cmd(cmdData) {
+export async function cmd(cmdData: string) {
     const { stdout, stderr } = await exec(cmdData);
     let cmdReturn = {
         stdout:stdout,
@@ -17,7 +14,7 @@ async function cmd(cmdData) {
 }
 
 //get system info
-function osInfo() {
+export function osInfo() {
     let info = {
         arch: os.arch(),
         platform: os.platform(),

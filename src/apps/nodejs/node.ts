@@ -1,18 +1,14 @@
-let util = require("../../util.js");
-const { promisify } = require(`util`);
+import * as util from "util";
+import * as cheerio from "cheerio";
+import * as requestCallback from "request";
 
-const cheerio = require('cheerio');
+import * as appUtil from "../../util";
 
-const requestCallback = require('request');
-let request = promisify(requestCallback);
+let request = util.promisify(requestCallback);
 
-module.exports = {
-    // init: init,
-    run: run
-}
 
-async function run(settings){
-    let osInfo = util.osInfo();
+export async function run(settings){
+    let osInfo = appUtil.osInfo();
     let iv = await installedVersion("wow");//setting.installed check current ver5sion
 
     let ov = await onlineVersion("wow");//check latest version, LTS or current
@@ -35,7 +31,7 @@ async function run(settings){
 
 async function installedVersion(setting) {
     ///TODO: check for error if cmd does not work
-    let versionText = await util.cmd("node -v");
+    let versionText = await appUtil.cmd("node -v");
     let version = versionExtraction(versionText.stdout);
 
     return version;
