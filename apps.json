@@ -4,10 +4,11 @@
         {
             "folder": "nodejs",
             "file": "node.js",
-            "userSettings":[
-                {"branchs":""},
-                {"systems":""}
-            ]
+            "userOptions":{
+                "version":"",
+                "options":[
+                ]
+            }
         }
     ]
 }

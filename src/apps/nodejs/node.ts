@@ -5,7 +5,17 @@ import * as requestCallback from "request";
 import * as appUtil from "../../util";
 
 let request = util.promisify(requestCallback);
+let config = require('./config.json');
 
+export function init(setting) {
+    //check if version changed
+    
+    //set os version
+}
+
+export function version(){
+    
+}
 
 export async function run(settings){
     let osInfo = appUtil.osInfo();
