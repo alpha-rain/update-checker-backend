@@ -14,13 +14,17 @@ var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc 
     // get_cmc_data();
 });//schedule
 
+function setupApp(){
+    
+}
+
 async function checkForUpdates(data: checkForUpdatesData) {//check function
     //loop through array
-    let updateCheck = [];
+    let updateCheckResponse = [];
     for (let i in data) {
         try {
             let app = require(`./apps/${data[i].folder}/${data[i].file}`);//load app
-            let checkResponse = await app.run();
+            let checkResponse = await app.run(data[i].userSettings);
             // console.log("avc");
         } catch (err) {
             console.log(err.message);
