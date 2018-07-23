@@ -34,7 +34,7 @@ export async function run(settings){
         checkResult.updateAvailable = false;
         return checkResult;
     } else {
-        console.log('qwe');
+        console.log(`nodejs current version: ${iv.major}.${iv.minor}.${iv.patch}, latest version ${ov.current.major}.${ov.current.minor}.${ov.current.patch}`);
         //get update link
     }
 }

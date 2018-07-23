@@ -5,6 +5,7 @@
     "folder": "nodejs",
     "initialize":"",
     "programOptions":{
+        "web-link":"https://nodejs.org/dist/v<<version>>/",
         "version": [
             {
                 "link":"node-v<<version>>-x64.msi",

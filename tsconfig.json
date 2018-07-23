@@ -6,7 +6,7 @@
         "allowJs": true,
         "outDir": "dist",
         "moduleResolution": "node",
-        "watch": true,
+        "watch": false,
         "strictNullChecks": true
     },
     "include": [
