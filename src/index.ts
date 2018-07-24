@@ -4,20 +4,33 @@ import * as FileSync from "lowdb/adapters/FileSync";
 
 const adapter = new FileSync(__dirname + '/../apps.json');
 const appsConfig = lowdb(adapter);
-//let Apps: CheckForUpdatesData[] = [];
 
-export async function check() {
-    //let data = appsConfig.get('apps').value();
-    await checkForUpdates(this.Apps);
+
+//var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc data every hour(for 30 minutes * */30 * * * *)
+    // get_cmc_data();
+//});//schedule
+
+
+export class Run {
+Apps: CheckForUpdatesData[];
+
+constructor() {
+    this.Apps = [];
 }
 
-export function init() {
-    let apps: CheckForUpdatesData[] = [];
+
+public async check() {
+    //let data = appsConfig.get('apps').value();
+    await this.checkForUpdates(this.Apps);
+}
+
+public init() {
+    //let apps: CheckForUpdatesData[] = [];
     let data = appsConfig.get('apps').value();
     for (let i in data) {
-        apps.push(new CheckForUpdatesData(data[i].folder, data[i].file, `./apps/${data[i].folder}/${data[i].file}`));
+        this.Apps.push(new CheckForUpdatesData(data[i].folder, data[i].file, `./apps/${data[i].folder}/${data[i].file}`));
     }
-    return apps;
+    //return apps;
     //console.log("done");
 }
 
@@ -27,15 +40,13 @@ export function init() {
 //     };
 // }
 
-var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc data every hour(for 30 minutes * */30 * * * *)
-    // get_cmc_data();
-});//schedule
 
-function setupApp() {
+
+private setupApp() {
 
 }
 
-async function checkForUpdates(data: CheckForUpdatesData[]) {//check function
+private async checkForUpdates(data: CheckForUpdatesData[]) {//check function
     //loop through array
     // let updateCheckResponse = [];
     console.log("checkForUpdates");
@@ -50,7 +61,9 @@ async function checkForUpdates(data: CheckForUpdatesData[]) {//check function
     }
 }
 
-class CheckForUpdatesData {
+};
+
+export class CheckForUpdatesData {
     folder: string;
     file: string;
     app: any;

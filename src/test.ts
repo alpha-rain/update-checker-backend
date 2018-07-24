@@ -1,10 +1,11 @@
 // let util = require("./util.js");
 // let nodeApp = require("./apps/node.js");
-import * as main from "./index";
+import { Run } from "./index";
 // let main = require('./index.js');
 
-main.init();
-main.check();
+let run = new Run();
+run.init();
+run.check();
 
 // test();
 // async function test(){
