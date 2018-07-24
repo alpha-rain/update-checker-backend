@@ -16,31 +16,5 @@
                 "operatingSystem":"Windows x86"
             }
         ]
-    },
-    "userOptions": {
-        "version":"0.0.1",
-        "options":[
-            "branchs",
-            "operatingSystem"
-        ],
-        "branchs": 
-        {
-            "name":"Branch",
-            "type":"dropDown",
-            "defualt":"Current",
-            "options":[
-            "LTS",
-            "Current"
-        ]
-    },
-        "operatingSystem":{
-            "name":"OS version",
-            "type":"dropDown",
-            "defualt":"",
-            "options":[
-                "Windows x64",
-                "Windows x86"
-            ]
-        }
     }    
 }

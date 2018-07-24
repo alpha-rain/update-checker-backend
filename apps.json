@@ -3,12 +3,7 @@
     "apps": [
         {
             "folder": "nodejs",
-            "file": "node.js",
-            "userOptions":{
-                "version":"",
-                "options":[
-                ]
-            }
+            "file": "node.js"
         }
     ]
 }
