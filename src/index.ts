@@ -7,59 +7,41 @@ const appsConfig = lowdb(adapter);
 
 
 //var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc data every hour(for 30 minutes * */30 * * * *)
-    // get_cmc_data();
+// get_cmc_data();
 //});//schedule
 
-
 export class Run {
-Apps: CheckForUpdatesData[];
+    Apps: CheckForUpdatesData[];
 
-constructor() {
-    this.Apps = [];
-}
-
-
-public async check() {
-    //let data = appsConfig.get('apps').value();
-    await this.checkForUpdates(this.Apps);
-}
-
-public init() {
-    //let apps: CheckForUpdatesData[] = [];
-    let data = appsConfig.get('apps').value();
-    for (let i in data) {
-        this.Apps.push(new CheckForUpdatesData(data[i].folder, data[i].file, `./apps/${data[i].folder}/${data[i].file}`));
+    constructor() {
+        this.Apps = [];
     }
-    //return apps;
-    //console.log("done");
-}
 
-// function initData(appData){
-//     return {
+    public async check() {
+        await this.checkForUpdates(this.Apps);
+    }
 
-//     };
-// }
-
-
-
-private setupApp() {
-
-}
-
-private async checkForUpdates(data: CheckForUpdatesData[]) {//check function
-    //loop through array
-    // let updateCheckResponse = [];
-    console.log("checkForUpdates");
-    for (let i in data) {
-        try {
-            // let app = require(`./apps/${data[i].folder}/${data[i].file}`);//load app
-            let checkResponse = await data[i].app.run();
-            // console.log("avc");
-        } catch (err) {
-            console.log(err.message);
+    public init() {
+        let data = appsConfig.get('apps').value();
+        for (let i in data) {
+            this.Apps.push(new CheckForUpdatesData(data[i].folder, data[i].file, `./apps/${data[i].folder}/${data[i].file}`));
         }
     }
-}
+
+    private setupApp() {
+
+    }
+
+    private async checkForUpdates(data: CheckForUpdatesData[]) {//check function
+        //loop through array
+        for (let i in data) {
+            try {
+                let checkResponse = await data[i].app.run();//load app
+            } catch (err) {
+                console.log(err.message);
+            }
+        }
+    }
 
 };
 
@@ -68,11 +50,9 @@ export class CheckForUpdatesData {
     file: string;
     app: any;
 
-    constructor(folder: string , file: string , app: string) {
+    constructor(folder: string, file: string, app: string) {
         this.folder = folder;
         this.file = file;
         this.app = require(app);
     }
-    
-    // userSettings: Object[]
 }
