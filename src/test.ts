@@ -3,6 +3,7 @@
 import * as main from "./index";
 // let main = require('./index.js');
 
+main.init();
 main.check();
 
 // test();
