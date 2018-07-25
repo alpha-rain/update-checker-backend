@@ -1,6 +1,7 @@
 import * as schedule from "node-schedule";
 import * as lowdb from "lowdb";
 import * as FileSync from "lowdb/adapters/FileSync";
+import * as events from "events";
 
 const adapter = new FileSync(__dirname + '/../apps.json');
 const appsConfig = lowdb(adapter);
@@ -12,19 +13,43 @@ const appsConfig = lowdb(adapter);
 
 export class Run {
     Apps: CheckForUpdatesData[];
+    
+    ScheduleEventEmitter = new events.EventEmitter();
+    ScheduleCheckState;
+    ScheduleCheckObject;
 
     constructor() {
         this.Apps = [];
+
+        this.ScheduleCheckState = false;
+        this.ScheduleCheckObject = null;
     }
 
     public async check() {
         await this.checkForUpdates(this.Apps);
     }
 
-    public init() {
+    public init(settings) {
         let data = appsConfig.get('apps').value();
         for (let i in data) {
             this.Apps.push(new CheckForUpdatesData(data[i].folder, data[i].file, `./apps/${data[i].folder}/${data[i].file}`));
+        }
+    }
+
+    // ------------------ Private ------------------
+    private scheduleCheckForUpdates(state, time) {
+        if (state == true) {
+            if (this.ScheduleCheckObject == null) {
+                this.ScheduleCheckObject = schedule.scheduleJob(time, async function () {//'* */60 * * * *'
+
+                });
+            }
+        } else {// appSchedule should be null
+            if (this.ScheduleCheckObject != null) {
+                this.ScheduleCheckObject.cancel();
+                this.ScheduleCheckObject = null;
+
+            }
         }
     }
 

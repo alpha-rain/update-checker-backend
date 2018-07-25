@@ -4,7 +4,7 @@ import { Run } from "./index";
 // let main = require('./index.js');
 
 let run = new Run();
-run.init();
+run.init('sd');
 run.check();
 
 // test();
