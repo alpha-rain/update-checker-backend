@@ -1,0 +1,19 @@
+{
+    "name": "opencv",
+    "icon": "file",
+    "folder": "opencv",
+    "initialize":"",
+    "programOptions":{
+        "web-link":"",
+        "version": [
+            {
+                "link":"",
+                "operatingSystem":"Windows x64"
+            },
+            {
+                "link":"",
+                "operatingSystem":"Windows x86"
+            }
+        ]
+    }    
+}

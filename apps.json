@@ -4,6 +4,10 @@
         {
             "folder": "nodejs",
             "file": "node.js"
+        },
+        {
+            "folder": "opencv",
+            "file": "opencv.js"
         }
     ]
 }

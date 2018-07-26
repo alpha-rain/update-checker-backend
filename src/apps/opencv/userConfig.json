@@ -10,8 +10,8 @@
             "type": "dropDown",
             "defualt": "Current",
             "options": [
-                "LTS",
-                "Current"
+                "2.x",
+                "3.x"
             ]
         },
         "operatingSystem": {

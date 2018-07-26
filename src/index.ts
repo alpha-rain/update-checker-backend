@@ -13,10 +13,10 @@ const appsConfig = lowdb(adapter);
 
 export class Run {
     Apps: CheckForUpdatesData[];
-    
+
     ScheduleEventEmitter = new events.EventEmitter();
-    ScheduleCheckState;
-    ScheduleCheckObject;
+    ScheduleCheckState: boolean;
+    ScheduleCheckObject: any;
 
     constructor() {
         this.Apps = [];
@@ -31,17 +31,17 @@ export class Run {
 
     public init(settings) {
         let data = appsConfig.get('apps').value();
-        for (let i in data) {
+        for (let i in data) {///TODO if files don't exist don't load the module and throw error for user
             this.Apps.push(new CheckForUpdatesData(data[i].folder, data[i].file, `./apps/${data[i].folder}/${data[i].file}`));
         }
     }
 
     // ------------------ Private ------------------
-    private scheduleCheckForUpdates(state, time) {
+    private scheduleCheckForUpdates(state: Boolean, time = '', data: CheckForUpdatesData[] = []) {
         if (state == true) {
             if (this.ScheduleCheckObject == null) {
                 this.ScheduleCheckObject = schedule.scheduleJob(time, async function () {//'* */60 * * * *'
-
+                    this.checkForUpdates(data);
                 });
             }
         } else {// appSchedule should be null
@@ -62,6 +62,7 @@ export class Run {
         for (let i in data) {
             try {
                 let checkResponse = await data[i].app.run();//load app
+                console.log('wew');
             } catch (err) {
                 console.log(err.message);
             }
@@ -69,6 +70,8 @@ export class Run {
     }
 
 };
+
+
 
 export class CheckForUpdatesData {
     folder: string;

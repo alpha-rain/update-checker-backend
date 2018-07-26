@@ -6,42 +6,25 @@ import * as appUtil from "../../util";
 
 let request = util.promisify(requestCallback);
 let config = require('./config.json');
-let userConfig = require('./userConfig.json');
 
-export function init(setting) {
-    //check if version changed
-
-    //set os version
-}
-
-export function version() {
-
-}
-
-export async function run(settings) {
+export async function run(settings){
     let osInfo = appUtil.osInfo();
     let iv = await installedVersion("wow");//setting.installed check current ver5sion
 
     let ov = await onlineVersion("wow");//check latest version, LTS or current
-    let ovUser = ov[userConfig.userSettings.options.branchs];
 
     let checkResult = {
         updateAvailable: false,
-        currentVersion: `${iv.major}.${iv.minor}.${iv.patch}`,
-        availableVersion: `${ovUser.major}.${ovUser.minor}.${ovUser.patch}`,
         updateLink: "",
         errors: false,
         errorText: ""
     }
 
-    if (combine(iv, ovUser) == true) {
+    if(combine(iv, ov.current) == true){
         checkResult.updateAvailable = false;
         return checkResult;
-
     } else {
-        console.log(`nodejs current version: ${iv.major}.${iv.minor}.${iv.patch}, latest version ${ovUser.major}.${ovUser.minor}.${ovUser.patch}`);
-        checkResult.updateAvailable = true;
-        return checkResult;
+        console.log(`nodejs current version: ${iv.major}.${iv.minor}.${iv.patch}, latest version ${ov.current.major}.${ov.current.minor}.${ov.current.patch}`);
         //get update link
     }
 }
@@ -67,8 +50,8 @@ async function onlineVersion(setting) {
     });
 
     let version = {
-        LTS: versionExtraction(versionRaw[0]),
-        current: versionExtraction(versionRaw[1])
+        LTS:versionExtraction(versionRaw[0]),
+        current:versionExtraction(versionRaw[1])
     };
 
     return version;
@@ -83,17 +66,17 @@ function versionExtraction(version) {
     let regex = /(\d+).(\d+).(\d+)/;
     let result = version.match(regex);
     let responce = {
-        major: result[1],
-        minor: result[2],
-        patch: result[3]
+        major:result[1],
+        minor:result[2],
+        patch:result[3]
     }
 
     return responce;
 }
 
-function combine(v1, v2) {
+function combine(v1,v2) {
     let v1Text = Number(v1.major) + Number(v1.minor) + Number(v1.patch);
     let v2Text = Number(v2.major) + Number(v2.minor) + Number(v2.patch);
-
+    
     return v1Text == v2Text;
 }
