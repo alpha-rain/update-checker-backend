@@ -3,6 +3,7 @@ import * as lowdb from "lowdb";
 import * as FileSync from "lowdb/adapters/FileSync";
 import * as events from "events";
 
+
 const adapter = new FileSync(__dirname + '/../apps.json');
 const appsConfig = lowdb(adapter);
 
@@ -10,11 +11,11 @@ const appsConfig = lowdb(adapter);
 //var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc data every hour(for 30 minutes * */30 * * * *)
 // get_cmc_data();
 //});//schedule
-
+//extends events.EventEmitter 
 export class Run {
     Apps: CheckForUpdatesData[];
 
-    ScheduleEventEmitter = new events.EventEmitter();
+    //ScheduleEventEmitter = new events.EventEmitter();
     ScheduleCheckState: boolean;
     ScheduleCheckObject: any;
 
@@ -23,6 +24,9 @@ export class Run {
 
         this.ScheduleCheckState = false;
         this.ScheduleCheckObject = null;
+
+        events.EventEmitter.call(this);
+        //this.ScheduleEventEmitter.on('check',(data)=>{return data});
     }
 
     public async check() {
@@ -41,7 +45,9 @@ export class Run {
         if (state == true) {
             if (this.ScheduleCheckObject == null) {
                 this.ScheduleCheckObject = schedule.scheduleJob(time, async function () {//'* */60 * * * *'
-                    this.checkForUpdates(data);
+                    let appData = this.checkForUpdates(data);
+                    // this.emit('check')
+                    //this.ScheduleEventEmitter.emit('check');
                 });
             }
         } else {// appSchedule should be null
