@@ -72,6 +72,7 @@ export class Run {
                 console.log(err.message);
             }
         }
+        return appResults;
     }
 
 };
