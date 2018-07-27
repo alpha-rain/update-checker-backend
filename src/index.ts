@@ -59,9 +59,14 @@ export class Run {
 
     private async checkForUpdates(data: CheckForUpdatesData[]) {//check function
         //loop through array
+        let appResults: object[] = [];
         for (let i in data) {
             try {
                 let checkResponse = await data[i].app.run();//load app
+
+                if (checkResponse != undefined) {
+                    appResults.push(checkResponse);
+                }
                 console.log('wew');
             } catch (err) {
                 console.log(err.message);
