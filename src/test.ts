@@ -1,13 +1,12 @@
 // let util = require("./util.js");
 // let nodeApp = require("./apps/node.js");
+// import * as main from ".";
 import { Run } from "./index";
 // let main = require('./index.js');
 
 let run = new Run();
-run.init('sd');
-//run.check();
+run.check();
 run.setSchedule(true, '* * * * *');
-
 run.on('check',(data)=>{
     console.log('data');
 })
