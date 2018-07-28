@@ -32,7 +32,7 @@ export class Run extends events.EventEmitter {
         if (state == true) {
             if (this.ScheduleCheckObject == null) {
                 let checkFunc = this.check;
-                this.ScheduleCheckObject = schedule.scheduleJob(time, async function ()
+                this.ScheduleCheckObject = schedule.scheduleJob(time, async () =>
                  {//'* */60 * * * *'
                     try {
                         let appData = await checker.check();
