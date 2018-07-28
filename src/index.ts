@@ -8,11 +8,8 @@ const adapter = new FileSync(__dirname + '/../apps.json');
 const appsConfig = lowdb(adapter);
 
 
-//var UpdateCheck = schedule.scheduleJob('* */60 * * * *', function () {//get cmc data every hour(for 30 minutes * */30 * * * *)
-// get_cmc_data();
-//});//schedule
-//extends events.EventEmitter 
-export class Run {
+
+export class Run extends events.EventEmitter {
     Apps: CheckForUpdatesData[];
 
     //ScheduleEventEmitter = new events.EventEmitter();
@@ -20,6 +17,7 @@ export class Run {
     ScheduleCheckObject: any;
 
     constructor() {
+        super();
         this.Apps = [];
 
         this.ScheduleCheckState = false;
@@ -33,6 +31,10 @@ export class Run {
         await this.checkForUpdates(this.Apps);
     }
 
+    public setSchedule(state: Boolean, time = '') {
+        this.scheduleCheckForUpdates(state, time, this.Apps);
+    }
+
     public init(settings) {
         let data = appsConfig.get('apps').value();
         for (let i in data) {///TODO if files don't exist don't load the module and throw error for user
@@ -41,28 +43,6 @@ export class Run {
     }
 
     // ------------------ Private ------------------
-    private scheduleCheckForUpdates(state: Boolean, time = '', data: CheckForUpdatesData[] = []) {
-        if (state == true) {
-            if (this.ScheduleCheckObject == null) {
-                this.ScheduleCheckObject = schedule.scheduleJob(time, async function () {//'* */60 * * * *'
-                    let appData = this.checkForUpdates(data);
-                    // this.emit('check')
-                    //this.ScheduleEventEmitter.emit('check');
-                });
-            }
-        } else {// appSchedule should be null
-            if (this.ScheduleCheckObject != null) {
-                this.ScheduleCheckObject.cancel();
-                this.ScheduleCheckObject = null;
-
-            }
-        }
-    }
-
-    private setupApp() {
-
-    }
-
     private async checkForUpdates(data: CheckForUpdatesData[]) {//check function
         //loop through array
         let appResults: object[] = [];
@@ -81,6 +61,35 @@ export class Run {
         return appResults;
     }
 
+    private async scheduleCheckForUpdates(state: Boolean, time = '', data: CheckForUpdatesData[] = []) {
+        if (state == true) {
+            if (this.ScheduleCheckObject == null) {
+                let checkFunc = this.check;
+                this.ScheduleCheckObject = schedule.scheduleJob(time, async function ()
+                 {//'* */60 * * * *'
+                    try {
+                        let appData = await checkFunc();
+                        this.emit('check', appData);
+                        console.log('run schedule');
+                    } catch (err) {
+                        console.log(err.message);
+                    }
+                    // this.emit('check')
+                    //this.ScheduleEventEmitter.emit('check');
+                });
+            }
+        } else {// appSchedule should be null
+            if (this.ScheduleCheckObject != null) {
+                this.ScheduleCheckObject.cancel();
+                this.ScheduleCheckObject = null;
+
+            }
+        }
+    }
+
+    private setupApp() {
+
+    }
 };
 
 

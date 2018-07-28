@@ -5,7 +5,12 @@ import { Run } from "./index";
 
 let run = new Run();
 run.init('sd');
-run.check();
+//run.check();
+run.setSchedule(true, '* * * * *');
+
+run.on('check',(data)=>{
+    console.log('data');
+})
 
 // test();
 // async function test(){
