@@ -1,10 +1,12 @@
 // let util = require("./util.js");
 // let nodeApp = require("./apps/node.js");
 // import * as main from ".";
-import { Run } from "./index";
+// import { Run } from "./index";
+import { Checker } from "./checker";
 // let main = require('./index.js');
 
-let run = new Run();
+let run = new Checker();
+run.init('s');
 run.check();
 run.setSchedule(true, '* * * * *');
 run.on('check',(data)=>{

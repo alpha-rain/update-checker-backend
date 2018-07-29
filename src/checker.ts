@@ -1,49 +1,26 @@
 
 import * as lowdb from "lowdb";
 import * as FileSync from "lowdb/adapters/FileSync";
+import * as events from "events";
+import * as schedule from "node-schedule";
 
 
 
 const adapter = new FileSync(__dirname + '/../apps.json');
 const appsConfig = lowdb(adapter);
 
-    // private async scheduleCheckForUpdates(state: Boolean, time = '', data: CheckForUpdatesData[] = []) {
-    //     if (state == true) {
-    //         if (this.ScheduleCheckObject == null) {
-    //             let checkFunc = this.check;
-    //             this.ScheduleCheckObject = schedule.scheduleJob(time, async function ()
-    //              {//'* */60 * * * *'
-    //                 try {
-    //                     let appData = await checkFunc();
-    //                     this.emit('check', appData);
-    //                     console.log('run schedule');
-    //                 } catch (err) {
-    //                     console.log(err.message);
-    //                 }
-    //                 // this.emit('check')
-    //                 //this.ScheduleEventEmitter.emit('check');
-    //             });
-    //         }
-    //     } else {// appSchedule should be null
-    //         if (this.ScheduleCheckObject != null) {
-    //             this.ScheduleCheckObject.cancel();
-    //             this.ScheduleCheckObject = null;
 
-    //         }
-    //     }
-    // }
-
-export class Checker  {
+export class Checker extends events.EventEmitter {
     Apps: CheckForUpdatesData[];
 
     //ScheduleEventEmitter = new events.EventEmitter();
-    // ScheduleCheckState: boolean;
-    // ScheduleCheckObject: any;
+    ScheduleCheckState: boolean;
+    ScheduleCheckObject: any;
 
     constructor() {
-        
+        super();
         this.Apps = [];
-
+        
         
 
         // events.EventEmitter.call(this);
@@ -54,9 +31,9 @@ export class Checker  {
         return await this.checkForUpdates(this.Apps);
     }
 
-    // public setSchedule(state: Boolean, time = '') {
-    //     this.scheduleCheckForUpdates(state, time, this.Apps);
-    // }
+    public setSchedule(state: Boolean, time = '') {
+        this.scheduleCheckForUpdates(state, time);
+    }
 
     public init(settings) {
         let data = appsConfig.get('apps').value();
@@ -66,6 +43,32 @@ export class Checker  {
     }
 
     // ------------------ Private ------------------
+    private async scheduleCheckForUpdates(state: Boolean, time = '') {
+        if (state == true) {
+            if (this.ScheduleCheckObject == null) {
+                //let checkFunc = this.check;
+                this.ScheduleCheckObject = schedule.scheduleJob(time, async ()=>
+                 {//'* */60 * * * *'
+                    try {
+                        let appData = await this.check();
+                        this.emit('check', appData);
+                        console.log('run schedule');
+                    } catch (err) {
+                        console.log(err.message);
+                    }
+                    // this.emit('check')
+                    //this.ScheduleEventEmitter.emit('check');
+                });
+            }
+        } else {// appSchedule should be null
+            if (this.ScheduleCheckObject != null) {
+                this.ScheduleCheckObject.cancel();
+                this.ScheduleCheckObject = null;
+
+            }
+        }
+    }
+
     private async checkForUpdates(data: CheckForUpdatesData[]) {//check function
         //loop through array
         let appResults: object[] = [];
