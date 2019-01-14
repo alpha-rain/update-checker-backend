@@ -3,7 +3,8 @@
     "userOptions": {
         "options": [
             "branchs",
-            "operatingSystem"
+            "operatingSystem",
+            "installLocation"
         ],
         "branchs": {
             "name": "Branch",
@@ -22,13 +23,19 @@
                 "Windows x64",
                 "Windows x86"
             ]
+        },
+        "installLocation": {
+            "name": "Install location",
+            "type": "folder",
+            "defualt": "C:/opencv/build"
         }
     },
     "userSettings": {
         "version": "",
         "options": {
             "branchs":"current",
-            "operatingSystem":"Windows x64"
+            "operatingSystem":"Windows x64",
+            "installLocation":"C:/opencv_3.0/opencv/build"
         }
     }
 }

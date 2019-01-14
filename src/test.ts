@@ -8,7 +8,7 @@ import { Checker } from "./checker";
 let run = new Checker();
 run.init('s');
 run.check();
-run.setSchedule(true, '* * * * *');
+// run.setSchedule(true, '* * * * *');
 run.on('check',(data)=>{
     console.log('data');
 })
